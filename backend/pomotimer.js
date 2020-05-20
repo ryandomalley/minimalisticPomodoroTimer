@@ -1,4 +1,6 @@
 const startButton = document.getElementById("start");
+const resumeButton = document.getElementById("resume");
+const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
 const minuteDisplay = document.getElementById("minutes");
 const secondDisplay = document.getElementById("seconds");
@@ -20,11 +22,11 @@ var status = 0;
 
 var clockHandle;
 
-function countDown(){
+function countDown(minutes,seconds){
     status = 1;
     var end = new Date();
-    end.setMinutes(end.getMinutes() + timerMinutes);
-    end.setSeconds(end.getSeconds() + timerSeconds);
+    end.setMinutes(end.getMinutes() + minutes);
+    end.setSeconds(end.getSeconds() + seconds);
     function tick(){
         //Get current date
         var now = new Date();
@@ -82,19 +84,35 @@ function resetClock(){
     }
     minuteDisplay.innerHTML = timerMinutes;
     secondDisplay.innerHTML = timerSeconds;
+
+    pauseButton.style.display = "none";
+    resumeButton.style.display = "none";
+    startButton.style.display = "inline";
+
     status = 0;
 }
-
+/* 
+startClock() : Starts the timer if and only if the clock has not been started (status code 0).
+@param : none
+@return : none
+*/
 function startClock(){
     if(status == 0){
-        countDown();
+        countDown(timerMinutes,timerSeconds);
+        startButton.style.display = "none";
+        pauseButton.style.display = "inline";
     }
 }
 
 function pauseClock(){
-
+    if(status == 1){
+        clearInterval(clockHandle);
+        pauseButton.style.display = "none";
+        resumeButton.style.display = "inline";
+    }
 }
 
 resetClock();
 startButton.addEventListener("click",startClock);
 resetButton.addEventListener("click",resetClock);
+pauseButton.addEventListener("click",pauseClock);
