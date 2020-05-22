@@ -51,7 +51,6 @@ function countDown(minutes,seconds){
     clockHandle = setInterval(tick, 90);
 }
 
-updateClock
 function timeConversion(milliseconds){
     remainingMinutes = Math.floor(milliseconds / 60000);
     remainingSeconds = ((milliseconds % 60000) / 1000).toFixed(0);
@@ -109,6 +108,17 @@ function pauseClock(){
         clearInterval(clockHandle);
         pauseButton.style.display = "none";
         resumeButton.style.display = "inline";
+        status = 2;
+    }
+}
+
+function resumeClock(){
+    if(status == 2){
+        console.log(remainingMinutes);
+        console.log(remainingSeconds);
+        countDown(remainingMinutes,remainingSeconds);
+        pauseButton.style.display = "inline";
+        resumeButton.style.display = "none";
     }
 }
 
@@ -116,3 +126,4 @@ resetClock();
 startButton.addEventListener("click",startClock);
 resetButton.addEventListener("click",resetClock);
 pauseButton.addEventListener("click",pauseClock);
+resumeButton.addEventListener("click",resumeClock);
