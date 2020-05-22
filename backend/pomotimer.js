@@ -5,31 +5,31 @@ const resetButton = document.getElementById("reset");
 const minuteDisplay = document.getElementById("minutes");
 const secondDisplay = document.getElementById("seconds");
 
-let timerMinutes = 0;
-let timerSeconds = 5;
+let timerMinutes = 25;
+let timerSeconds = 0;
 
 class Clock{
     constructor(){
         this.remainingMinutes = 0;
         this.remainingSeconds = 0;
         this.status = "not started";
+        this.remainingMilliseconds = 0;
     }
 
-    countDown(minutes,seconds){
+    countDown(milliseconds){
         this.status = "running";
         let end = new Date();
-        end.setMinutes(end.getMinutes() + minutes);
-        end.setSeconds(end.getSeconds() + seconds);
+        end.setMilliseconds(end.getMinutes() + milliseconds);
         // Had to use an arrow function, otherwise a function inside the countDown() method won't be able to access
         // the other class methods. We love javascript!
         this.clockHandle = setInterval(() =>{
             //Get current date
             let now = new Date();
             //Calculate remaining milliseconds
-            let remainingMilli = end - now;
+            this.remainingMilliseconds = end - now;
             //Check to see if the timer has elapsed, or the reset button has been pressed
             //Stop the clock if either happen
-            if(remainingMilli <= 0){
+            if(this.remainingMilliseconds <= 0){
                 clearInterval(this.clockHandle);
                 this.remainingMinutes = 0;
                 this.remainingSeconds = 0;            
@@ -40,11 +40,11 @@ class Clock{
             }
             else{
                 //Convert milliseconds to Minutes + Seconds, then update HTML
-                this.timeConversion(remainingMilli);
+                this.timeConversion(this.remainingMilliseconds);
                 //Update hmtl
                 this.updateClock();
             }
-        }, 45);
+        }, 90);
     }
 
     /* 
@@ -99,7 +99,8 @@ class Clock{
     */
     startClock(){
         if(this.status === "not started"){
-            this.countDown(timerMinutes,timerSeconds);
+            let timerMilliseconds = (timerMinutes * 60000) + (timerSeconds * 1000) + 1000
+            this.countDown(timerMilliseconds);
             startButton.style.display = "none";
             pauseButton.style.display = "inline";
         }
@@ -125,7 +126,7 @@ class Clock{
     */
     resumeClock(){
         if(this.status === "paused"){
-            this.countDown(this.remainingMinutes,this.remainingSeconds);
+            this.countDown(this.remainingMilliseconds);
             pauseButton.style.display = "inline";
             resumeButton.style.display = "none";
             this.status = "running";
@@ -133,6 +134,9 @@ class Clock{
     }
 }
 
+function pomoTimer(){
+
+}
 
 let clock = new Clock();
 clock.resetClock();
