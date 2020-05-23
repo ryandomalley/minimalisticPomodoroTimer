@@ -5,8 +5,17 @@ const resetButton = document.getElementById("reset");
 const minuteDisplay = document.getElementById("minutes");
 const secondDisplay = document.getElementById("seconds");
 
-let timerMinutes = 0;
-let timerSeconds = 10;
+const LONGBREAK_MINS = 15;
+const SHORTBREAK_MINS = 5;
+const POMO_MINS = 25;
+
+const STATES = ["pomodoro","short-break","pomodoro","short-break","pomodoro","short-break","pomodoro","long-break"];
+let state_index = 0;
+
+let timerMinutes = POMO_MINS;
+let timerSeconds = 0;
+
+let pomocounter = 1;
 
 class Clock{
     constructor(){
@@ -35,8 +44,23 @@ class Clock{
                 this.remainingMinutes = 0;
                 this.remainingSeconds = 0;            
                 this.updateClock();
-                //Exit the function
-                return;
+                
+
+                if(state_index + 1 >= STATES.length)
+                    state_index = 0;
+                else
+                    state_index++;
+                
+                if(STATES[state_index] == "pomodoro"){
+                    pomocounter++;
+                    this.countDown(POMO_MINS*60000);
+                }
+                else if(STATES[state_index] == "short-break"){
+                    this.countDown(SHORTBREAK_MINS*60000);
+                }
+                else{
+                    this.countDown(LONGBREAK_MINS*60000)
+                }
             }
             else{
                 //Convert milliseconds to Minutes + Seconds, then update HTML
@@ -64,8 +88,11 @@ class Clock{
     @return : none
     */
     updateClock(){
-        minuteDisplay.innerHTML = this.remainingMinutes;
-        secondDisplay.innerHTML = this.remainingSeconds;
+        let displayMins = this.remainingMinutes.toString().padStart(2, "0");
+        let displaySecs = this.remainingSeconds.toString().padStart(2, "0");
+
+        minuteDisplay.innerHTML = displayMins;
+        secondDisplay.innerHTML = displaySecs;
     }
 
     /* 
@@ -83,14 +110,15 @@ class Clock{
             this.remainingMinutes = 0;
             this.remainingSeconds = 0;
         }
-        minuteDisplay.innerHTML = timerMinutes;
-        secondDisplay.innerHTML = timerSeconds;
+        minuteDisplay.innerHTML = timerMinutes.toString().padStart(2,"0");
+        secondDisplay.innerHTML = timerSeconds.toString().padStart(2,"0");
 
         pauseButton.style.display = "none";
         resumeButton.style.display = "none";
         startButton.style.display = "inline";
 
         this.status = "not started";
+        pomocounter = 1;
     }
     /* 
     startClock() : Starts the timer if and only if the clock has not been started.
@@ -100,7 +128,7 @@ class Clock{
     startClock(){
         if(this.status === "not started"){
             //
-            let timerMilliseconds = (timerMinutes * 60000) + (timerSeconds * 1000) + 1000
+            let timerMilliseconds = (timerMinutes * 60000) + (timerSeconds * 1000) + 1000;
             this.countDown(timerMilliseconds);
             startButton.style.display = "none";
             pauseButton.style.display = "inline";
@@ -133,10 +161,6 @@ class Clock{
             this.status = "running";
         }
     }
-}
-
-function pomoTimer(){
-
 }
 
 let clock = new Clock();
