@@ -5,8 +5,8 @@ const resetButton = document.getElementById("reset");
 const minuteDisplay = document.getElementById("minutes");
 const secondDisplay = document.getElementById("seconds");
 
-let timerMinutes = 25;
-let timerSeconds = 0;
+let timerMinutes = 0;
+let timerSeconds = 10;
 
 class Clock{
     constructor(){
@@ -30,11 +30,11 @@ class Clock{
             //Check to see if the timer has elapsed, or the reset button has been pressed
             //Stop the clock if either happen
             if(this.remainingMilliseconds <= 0){
+                this.status = "completed";
                 clearInterval(this.clockHandle);
                 this.remainingMinutes = 0;
                 this.remainingSeconds = 0;            
                 this.updateClock();
-                this.status = "completed";
                 //Exit the function
                 return;
             }
@@ -99,6 +99,7 @@ class Clock{
     */
     startClock(){
         if(this.status === "not started"){
+            //
             let timerMilliseconds = (timerMinutes * 60000) + (timerSeconds * 1000) + 1000
             this.countDown(timerMilliseconds);
             startButton.style.display = "none";
@@ -111,7 +112,7 @@ class Clock{
     @return : none
     */
     pauseClock(){
-        if(this.status === "running"){
+        if(this.status === "running" && this.remainingMinutes != 0 || this.remainingSeconds != 0){
             clearInterval(this.clockHandle);
             pauseButton.style.display = "none";
             resumeButton.style.display = "inline";
