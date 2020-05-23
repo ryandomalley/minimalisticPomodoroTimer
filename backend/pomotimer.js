@@ -4,6 +4,7 @@ const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
 const minuteDisplay = document.getElementById("minutes");
 const secondDisplay = document.getElementById("seconds");
+const stateDisplay = document.getElementById("current state");
 
 const LONGBREAK_MINS = 15;
 const SHORTBREAK_MINS = 5;
@@ -19,8 +20,8 @@ let pomocounter = 1;
 
 class Clock{
     constructor(){
-        this.remainingMinutes = 0;
-        this.remainingSeconds = 0;
+        this.remainingMinutes = timerMinutes;
+        this.remainingSeconds = timerSeconds;
         this.status = "not started";
         this.remainingMilliseconds = 0;
     }
@@ -28,7 +29,7 @@ class Clock{
     countDown(milliseconds){
         this.status = "running";
         let end = new Date();
-        end.setMilliseconds(end.getMinutes() + milliseconds);
+        end.setMilliseconds(end.getMilliseconds() + milliseconds);
         // Had to use an arrow function, otherwise a function inside the countDown() method won't be able to access
         // the other class methods. We love javascript!
         this.clockHandle = setInterval(() =>{
@@ -87,12 +88,14 @@ class Clock{
     @param : none
     @return : none
     */
-    updateClock(){
+    updateClock(){        
+
         let displayMins = this.remainingMinutes.toString().padStart(2, "0");
         let displaySecs = this.remainingSeconds.toString().padStart(2, "0");
 
         minuteDisplay.innerHTML = displayMins;
         secondDisplay.innerHTML = displaySecs;
+        stateDisplay.innerHTML = STATES[state_index]+"#"+pomocounter;
     }
 
     /* 
@@ -164,7 +167,7 @@ class Clock{
 }
 
 let clock = new Clock();
-clock.resetClock();
+clock.updateClock();
 
 //resetClock();
 startButton.addEventListener("click",() => {clock.startClock() });
