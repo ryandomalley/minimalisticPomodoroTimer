@@ -18,6 +18,14 @@ body {
 
 }
 
+#footer a:hover, a:visited, a:link, a:active p{
+    text-decoration: none !important;
+}
+
+#footer a:hover {
+    font-weight: bold;
+}
+
 #flex-container{
     display: flex;
     height: 100%;
@@ -80,6 +88,8 @@ body {
 }
 
 #footer {
+    display: flex;
+    justify-content: center;
     padding-bottom: 2vh;
 }
 
@@ -270,5 +280,4 @@ body {
     #button-container {
         grid-gap: 20px;
     }
-}
 }
