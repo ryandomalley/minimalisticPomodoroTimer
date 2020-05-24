@@ -1,8 +1,39 @@
-#pause {
-  display: none;
-}
-
 #resume {
   display: none;
+  color: #E7CD49;
+  border-color: #E7CD49;
+}
+
+#pause {
+  display: none;
+  color: white;
+  background-color: #5C5C5C;
+  border: none;
+}
+
+button {
+  background: none;
+  border: 2px solid;
+  border-radius: 9px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  outline: none;
+  min-height: 60px;
+}
+
+#start {
+  border-color: #59A98C;
+  color: #59A98C;
+}
+
+#reset {
+  border-color: #E39C9C;
+  color: #E39C9C;
+}
+
+button i {
+  margin-left: 10px;
+  font-size: 18px;
 }
 /*# sourceMappingURL=button.css.map */

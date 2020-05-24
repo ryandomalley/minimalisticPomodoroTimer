@@ -4,7 +4,7 @@ const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
 const minuteDisplay = document.getElementById("minutes");
 const secondDisplay = document.getElementById("seconds");
-const stateDisplay = document.getElementById("current state");
+const stateDisplay = document.getElementById("current-state");
 
 const LONGBREAK_MINS = 15;
 const SHORTBREAK_MINS = 5;
@@ -95,7 +95,18 @@ class Clock{
 
         minuteDisplay.innerHTML = displayMins;
         secondDisplay.innerHTML = displaySecs;
-        stateDisplay.innerHTML = STATES[state_index]+"#"+pomocounter;
+        if(this.status === "not started"){
+            stateDisplay.innerHTML = "unstarted";
+        }
+        else if(this.status === "paused"){
+            stateDisplay.innerHTML = "paused";
+        }
+        else if(STATES[state_index] === "pomodoro"){
+            stateDisplay.innerHTML = "pomo"+" #"+pomocounter;
+        }
+        else{
+            stateDisplay.innerHTML = STATES[state_index];
+        }
     }
 
     /* 
@@ -110,11 +121,9 @@ class Clock{
         */
         if(this.status === "running"){
             clearInterval(this.clockHandle); //Disable clock
-            this.remainingMinutes = 0;
-            this.remainingSeconds = 0;
+            this.remainingMinutes = timerMinutes;
+            this.remainingSeconds = timerSeconds;
         }
-        minuteDisplay.innerHTML = timerMinutes.toString().padStart(2,"0");
-        secondDisplay.innerHTML = timerSeconds.toString().padStart(2,"0");
 
         pauseButton.style.display = "none";
         resumeButton.style.display = "none";
@@ -122,6 +131,7 @@ class Clock{
 
         this.status = "not started";
         pomocounter = 1;
+        this.updateClock();
     }
     /* 
     startClock() : Starts the timer if and only if the clock has not been started.
@@ -148,6 +158,7 @@ class Clock{
             pauseButton.style.display = "none";
             resumeButton.style.display = "inline";
             this.status = "paused";
+            this.updateClock();
         }
     }
 
