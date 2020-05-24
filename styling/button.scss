@@ -3,41 +3,78 @@ $button-yellow: #E7CD49;
 $pink-accent: #E39C9C;
 $darkgray-accent: #5C5C5C;
 
-#resume {
-    display: none;
-    color: $button-yellow;
-    border-color: $button-yellow;
-}
-
-#pause {
-    display: none;
-    color: white;
-    background-color: $darkgray-accent;
-    border: none;
-}
-
 button {
     background: none;
     border: 2px solid;
     border-radius: 9px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     outline: none;
     min-height: 60px;
+    cursor: pointer;
 }
+
+
 
 #start {
     border-color: $button-green;
     color: $button-green;
 }
 
+
+
 #reset {
     border-color: $pink-accent;
     color: $pink-accent;
 }
 
+
+
+#resume {
+    display: none;
+    color: $button-yellow;
+    border-color: $button-yellow;
+}
+
+
+
+#pause {
+    display: none;
+    color: white;
+    background-color: $darkgray-accent;
+    border-color: $darkgray-accent
+}
+
+@media(hover: hover) and (pointer: fine) {
+    button:hover {
+        color: white;
+        background-color: black;
+    }
+    
+    #reset:hover {
+        background-color: $pink-accent;
+        color: white;
+    }
+    
+    #start:hover {
+        background-color: $button-green;
+        color: white;
+    }
+    
+    #resume:hover {
+        color: white;
+        background-color: $button-yellow;
+    }
+    
+    #pause:hover {
+        color: $darkgray-accent;
+        background-color: transparent;
+    }
+}
+
+
 button i {
     margin-left: 10px;
-    font-size: 18px;
+    font-size: 16px;
 }

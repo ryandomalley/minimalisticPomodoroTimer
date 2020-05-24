@@ -121,10 +121,9 @@ class Clock{
         */
         if(this.status === "running"){
             clearInterval(this.clockHandle); //Disable clock
-            this.remainingMinutes = timerMinutes;
-            this.remainingSeconds = timerSeconds;
         }
-
+        this.remainingMinutes = timerMinutes;
+        this.remainingSeconds = timerSeconds;
         pauseButton.style.display = "none";
         resumeButton.style.display = "none";
         startButton.style.display = "inline";

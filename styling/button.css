@@ -1,25 +1,13 @@
-#resume {
-  display: none;
-  color: #E7CD49;
-  border-color: #E7CD49;
-}
-
-#pause {
-  display: none;
-  color: white;
-  background-color: #5C5C5C;
-  border: none;
-}
-
 button {
   background: none;
   border: 2px solid;
   border-radius: 9px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 500;
   outline: none;
   min-height: 60px;
+  cursor: pointer;
 }
 
 #start {
@@ -32,8 +20,44 @@ button {
   color: #E39C9C;
 }
 
+#resume {
+  display: none;
+  color: #E7CD49;
+  border-color: #E7CD49;
+}
+
+#pause {
+  display: none;
+  color: white;
+  background-color: #5C5C5C;
+  border-color: #5C5C5C;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  button:hover {
+    color: white;
+    background-color: black;
+  }
+  #reset:hover {
+    background-color: #E39C9C;
+    color: white;
+  }
+  #start:hover {
+    background-color: #59A98C;
+    color: white;
+  }
+  #resume:hover {
+    color: white;
+    background-color: #E7CD49;
+  }
+  #pause:hover {
+    color: #5C5C5C;
+    background-color: transparent;
+  }
+}
+
 button i {
   margin-left: 10px;
-  font-size: 18px;
+  font-size: 16px;
 }
 /*# sourceMappingURL=button.css.map */
