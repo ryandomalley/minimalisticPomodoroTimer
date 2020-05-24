@@ -13,7 +13,7 @@ body {
   background: linear-gradient(180deg, white 0%, #fafafa 100%);
 }
 
-#footer a:hover, a:visited, a:link, a:active p {
+a:hover, a:visited, a:link, a:active p {
   text-decoration: none !important;
 }
 
